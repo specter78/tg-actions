@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+  push:
+
+env:
+  BOT: ${{ secrets.BOT }}
+  CHAT: ${{ secrets.CHAT }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
+      with:
+          ruby-version: '3.3'
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+        retain_days: 0
+        keep_minimum_runs: 1
+    - name: Keep repository actions alive
+      uses: gautamkrishnar/keepalive-workflow@v1
+    - name: Run Script
+      run: |
+        npm i -g stock-nse-india
+        yarn global add carbon-now-cli
+        nseindia equity MANDEEP | carbon-now --save-as=output
+        URL = $(curl -F'file=@output.png' https://0x0.st)
+        curl 'https://api.telegram.org/bot$BOT/sendPhoto?chat_id=-CHAT&photo=$URL'
