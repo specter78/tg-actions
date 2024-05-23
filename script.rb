@@ -17,6 +17,6 @@ stocks.each do |stock|
   system('carbon-now output.txt --save-as=output')
   
   path_to_photo = File.expand_path('./output.png')
-  bot.api.send_photo(chat_id: chat_id, photo: Faraday::UploadIO.new(path_to_photo, 'image/png'))
+  bot.api.send_photo(chat_id: chat_id, photo: Faraday::UploadIO.new(path_to_photo, 'image/png'), caption: caption)
 end
 
