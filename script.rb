@@ -8,9 +8,9 @@ end
 
 array.each do |stock|
   output = `nseindia equity #{stock}`
-  price = output.split("\n")[19].split("|")[2].strip
+  price = output.split("\n")[19].split(' ')[-2]
   caption = stock + " - " + price
-  system("nseindia equity #{stock} | carbon-now --save-as=output")
+  system("#{output} | carbon-now --save-as=output")
   url = `curl -F'file=@output.png' https://0x0.st`
   system("curl 'https://api.telegram.org/bot$BOT/sendPhoto?chat_id=-$CHAT&photo=$URL&caption=#{caption}'")
 end
