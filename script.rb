@@ -11,7 +11,7 @@ if stocks.length > 0
 end
 
 stocks.each do |stock|
-  system('nseindia equity #{stock} | carbon-now --save-as=output')
+  system("nseindia equity #{stock} | carbon-now --save-as=output")
   output = `nseindia equity #{stock}`
   caption = stock + " - " + output.split("\n")[19].split(' ')[-2]
   path_to_photo = File.expand_path('./output.png')
