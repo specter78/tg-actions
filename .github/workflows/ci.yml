@@ -20,6 +20,7 @@ jobs:
         ruby-version: '3.3'
     - name: Run Script
       run: |
+        gem install telegram-bot-ruby
         ruby script.rb
     - name: Keep repository actions alive
       uses: gautamkrishnar/keepalive-workflow@v1

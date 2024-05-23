@@ -1,17 +1,22 @@
+require 'telegram/bot'
 
-array = ['MANDEEP']
+token = ENV["BOT"]
+chat_id = ENV["CHAT"]
+bot = Telegram::Bot::Client.new(token)
 
-if array.length > 0
+stocks = ['MANDEEP']
+if stocks.length > 0
   system('npm i -g stock-nse-india')
   system('yarn global add carbon-now-cli')
 end
 
-array.each do |stock|
+stocks.each do |stock|
   output = `nseindia equity #{stock}`
-  price = output.split("\n")[19].split(' ')[-2]
-  caption = stock + " - " + price
-  system("#{output} | carbon-now --save-as=output")
-  url = `curl -F'file=@output.png' https://0x0.st`
-  system("curl 'https://api.telegram.org/bot$BOT/sendPhoto?chat_id=-$CHAT&photo=$URL&caption=#{caption}'")
+  caption = stock + " - " + output.split("\n")[19].split(' ')[-2]
+  File.write("output.txt", output)
+  system('carbon-now output.txt --save-as=output')
+  
+  path_to_photo = File.expand_path('./output.png')
+  bot.api.send_photo(chat_id: chat_id, photo: Faraday::UploadIO.new(path_to_photo, 'image/png'))
 end
 
