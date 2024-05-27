@@ -4,17 +4,11 @@ token = ENV["BOT"]
 chat_id = ENV["CHAT"]
 bot = Telegram::Bot::Client.new(token)
 
-stocks = ['MANDEEP']
-if stocks.length > 0
-  system('npm i -g stock-nse-india')
-  system('yarn global add carbon-now-cli')
-end
-
-stocks.each do |stock|
-  system("nseindia equity #{stock} | carbon-now --save-as=output")
-  output = `nseindia equity #{stock}`
-  exit if output.split("\n")[3].split("'")[1].split(" ")[1] == "16:00:00"
-  caption = "#{stock} - ₹#{output.split("\n")[19].split(' ')[-2]}\n#{output.split("\n")[-2]}\n#{output.split("\n")[3].split("'")[1]}"
-  path_to_photo = File.expand_path('./output.png')
+stocks.each do |stock, price|
+  output = File.read(stock + '.txt').split("\n")[0..-14]
+  exit if output[3].split("'")[1].split(" ")[1] == "16:00:00"
+  exit if output[19].split(' ')[-2].to_i < price
+  caption = "#{stock} - \u20B9#{output[19].split(' ')[-2]}\n#{output[-2]}\n#{output[3].split("'")[1]}"
+  path_to_photo = File.expand_path("./#{stock}.png")
   bot.api.send_photo(chat_id: chat_id, photo: Faraday::UploadIO.new(path_to_photo, 'image/png'), caption: caption)
 end
