@@ -4,6 +4,7 @@ token = ENV["BOT"]
 chat_id = ENV["CHAT"]
 bot = Telegram::Bot::Client.new(token)
 
+stocks = [['MANDEEP', 60]]
 stocks.each do |stock, price|
   output = File.read(stock + '.txt').split("\n")[0..-14]
   exit if output[3].split("'")[1].split(" ")[1] == "16:00:00"
