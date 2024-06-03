@@ -29,10 +29,10 @@ converted_rules.each do |rule|
   end
   output["rules"] << { "name" => "", "id" => SecureRandom.uuid.upcase, "content" => rule }
 end
-File.write('Custom Rules.1b', JSON.pretty_generate([] << output))
+File.write('Custom Rules.1blockpkg', JSON.pretty_generate([] << output))
 
 token = ENV["BOT"]
 chat_id = ENV["CHAT"]
 bot = Telegram::Bot::Client.new(token)
-path_to_file = File.expand_path("./Custom Rules.1b")
+path_to_file = File.expand_path("./Custom Rules.1blockpkg")
 bot.api.send_document(chat_id: chat_id, document: Faraday::UploadIO.new(path_to_file, 'text/plain'))
