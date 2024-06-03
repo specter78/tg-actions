@@ -5,6 +5,13 @@ on:
     - cron: '0 15 * * *'
   workflow_dispatch:
   push:
+    paths:
+      - 'script_two.rb'
+      - '.github/workflows/ci_two.yml'
+
+env:
+  BOT: ${{ secrets.BOT }}
+  CHAT: ${{ secrets.CHAT }}
 
 jobs:
   build:
