@@ -1,0 +1,24 @@
+name: CI_TWO
+
+on:
+  schedule:
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
+      with:
+          ruby-version: '3.3'
+
+    - name: Run Script
+      run: |
+        chmod +x ConverterTool
+        gem install telegram-bot-ruby
+        git clone https://github.com/specter78/adblock.git --depth 1
+        git clone https://gist.github.com/specter78/f9161fd2489c677e795256e5464338d1 --depth 1
+        ruby script_two.rb

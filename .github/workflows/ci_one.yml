@@ -1,4 +1,4 @@
-name: CI
+name: CI_ONE
 
 on:
   schedule:
@@ -24,7 +24,7 @@ jobs:
         yarn global add carbon-now-cli
         gem install telegram-bot-ruby
         nseindia equity MANDEEP | tee >(carbon-now --save-as=MANDEEP) | tee MANDEEP.txt
-        ruby script.rb
+        ruby script_one.rb
     - name: Keep repository actions alive
       uses: gautamkrishnar/keepalive-workflow@v1
     - name: Delete workflow runs
