@@ -14,6 +14,7 @@ File.write('rules.txt', rules.join("\n"))
 converted_rules = `cat rules.txt | ./ConverterTool --safari-version 17 --optimize false --advanced-blocking false --advanced-blocking-format txt`
 converted_rules = JSON.parse converted_rules
 converted_rules = JSON.parse converted_rules["converted"]
+converted_rules.delete_if{ |e| e["action"]["type"] == "ignore-previous-rules" }
 
 # output = Hash.new
 # output["id"] = SecureRandom.uuid.upcase
