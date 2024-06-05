@@ -15,24 +15,25 @@ converted_rules = `cat rules.txt | ./ConverterTool --safari-version 17 --optimiz
 converted_rules = JSON.parse converted_rules
 converted_rules = JSON.parse converted_rules["converted"]
 
-output = Hash.new
-output["id"] = SecureRandom.uuid.upcase
-output["name"] = "Custom Rules"
-output["createdAt"] = 739022144.516709
-output["rules"] = []
+# output = Hash.new
+# output["id"] = SecureRandom.uuid.upcase
+# output["name"] = "Custom Rules"
+# output["createdAt"] = 739022144.516709
+# output["rules"] = []
 
-valid_resource_types = ['document', 'image', 'style-sheet', 'script', 'font', 'raw', 'svg-document', 'media', 'popup']
-converted_rules.each do |rule|
-  next if rule["action"]["type"] == "ignore-previous-rules"
-  if rule["trigger"]["resource-type"]
-    rule["trigger"]["resource-type"] = rule["trigger"]["resource-type"] & valid_resource_types
-  end
-  output["rules"] << { "name" => "", "id" => SecureRandom.uuid.upcase, "content" => rule }
-end
-File.write('Custom Rules.1blockpkg', JSON.pretty_generate([] << output))
+# valid_resource_types = ['document', 'image', 'style-sheet', 'script', 'font', 'raw', 'svg-document', 'media', 'popup']
+# converted_rules.each do |rule|
+#   next if rule["action"]["type"] == "ignore-previous-rules"
+#   if rule["trigger"]["resource-type"]
+#     rule["trigger"]["resource-type"] = rule["trigger"]["resource-type"] & valid_resource_types
+#   end
+#   output["rules"] << { "name" => "", "id" => SecureRandom.uuid.upcase, "content" => rule }
+# end
+# File.write('Custom Rules.1blockpkg', JSON.pretty_generate([] << output))
 
+File.write('blockerList.json', JSON.pretty_generate(converted_rules))
 token = ENV["BOT"]
 chat_id = ENV["CHAT"]
 bot = Telegram::Bot::Client.new(token)
-path_to_file = File.expand_path("./Custom Rules.1blockpkg")
+path_to_file = File.expand_path("./blockerList.json")
 bot.api.send_document(chat_id: chat_id, document: Faraday::UploadIO.new(path_to_file, 'text/plain'))
