@@ -14,7 +14,7 @@ File.write('rules.txt', rules.join("\n"))
 converted_rules = `cat rules.txt | ./ConverterTool --safari-version 17 --optimize false --advanced-blocking false --advanced-blocking-format txt`
 converted_rules = JSON.parse converted_rules
 converted_rules = JSON.parse converted_rules["converted"]
-converted_rules.delete_if{ |e| e["action"]["type"] == "ignore-previous-rules" }
+# converted_rules.delete_if{ |e| e["action"]["type"] == "ignore-previous-rules" }
 
 # output = Hash.new
 # output["id"] = SecureRandom.uuid.upcase
@@ -24,7 +24,6 @@ converted_rules.delete_if{ |e| e["action"]["type"] == "ignore-previous-rules" }
 
 # valid_resource_types = ['document', 'image', 'style-sheet', 'script', 'font', 'raw', 'svg-document', 'media', 'popup']
 # converted_rules.each do |rule|
-#   next if rule["action"]["type"] == "ignore-previous-rules"
 #   if rule["trigger"]["resource-type"]
 #     rule["trigger"]["resource-type"] = rule["trigger"]["resource-type"] & valid_resource_types
 #   end
