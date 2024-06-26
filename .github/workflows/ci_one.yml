@@ -28,6 +28,7 @@ jobs:
         gem install telegram-bot-ruby
         nseindia equity MANDEEP | tee >(carbon-now --save-as=MANDEEP) | tee MANDEEP.txt
         nseindia equity MAXPOSURE | tee >(carbon-now --save-as=MAXPOSURE) | tee MAXPOSURE.txt
+        nseindia equity APS | tee >(carbon-now --save-as=APS) | tee APS.txt
         ruby script_one.rb
     - name: Keep repository actions alive
       uses: gautamkrishnar/keepalive-workflow@v1
