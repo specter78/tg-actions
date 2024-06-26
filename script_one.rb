@@ -16,7 +16,7 @@ stocks.each do |stock, price|
 end
 
 # stock < price
-stocks = [['MAXPOSURE', 75]]
+stocks = [['MAXPOSURE', 80]]
 stocks.each do |stock, price|
   output = File.read(stock + '.txt').split("\n")[0..-14]
   exit if output[3].split("'")[1].split(" ")[1] == "16:00:00"
