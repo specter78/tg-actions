@@ -1,4 +1,4 @@
-name: TG BOT API
+name: Telegram Bot API
 
 on:
   workflow_dispatch:
@@ -26,8 +26,8 @@ jobs:
         cd ../..
         ls -l /usr/local/bin/telegram-bot-api*
     - name: Release telegram bot api
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Release
-          fail_on_unmatched_files: true
-          files: /usr/local/bin/telegram-bot-api*
+      uses: softprops/action-gh-release@v2
+      with:
+        name: Release
+        fail_on_unmatched_files: true
+        files: /usr/local/bin/telegram-bot-api*
