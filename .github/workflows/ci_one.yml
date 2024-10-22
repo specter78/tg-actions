@@ -27,6 +27,7 @@ jobs:
         yarn global add carbon-now-cli
         gem install telegram-bot-ruby
         nseindia equity WCIL | tee >(carbon-now --save-as=WCIL) | tee WCIL.txt
+        nseindia equity HYUNDAI | tee >(carbon-now --save-as=HYUNDAI) | tee HYUNDAI.txt
         ruby script_one.rb
     - name: Keep repository actions alive
       uses: gautamkrishnar/keepalive-workflow@v1
