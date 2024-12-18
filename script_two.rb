@@ -11,7 +11,7 @@ rules = File.read('adblock/ios/adguard_annoyances_optimized.txt').split("\n") + 
 rules = rules.uniq.delete_if { |e| e == '' }
 File.write('rules.txt', rules.join("\n"))
 
-converted_rules = `cat rules.txt | ./ConverterTool --safari-version 17 --optimize false --advanced-blocking false --advanced-blocking-format txt`
+converted_rules = `cat rules.txt | ./ConverterTool --safari-version 18 --optimize false --advanced-blocking false --advanced-blocking-format txt`
 converted_rules = JSON.parse converted_rules
 converted_rules = JSON.parse converted_rules["converted"]
 # converted_rules.delete_if{ |e| e["action"]["type"] == "ignore-previous-rules" }
